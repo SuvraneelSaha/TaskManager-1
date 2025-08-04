@@ -1,0 +1,1 @@
+// route is for defining the end point of the app and also map them to a specific controller 
