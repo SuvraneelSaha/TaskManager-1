@@ -10,21 +10,23 @@ import {
   deleteASingleTaskByIdForASpecificUser,
 } from "../controller/taskController.js";
 
+import authMiddleware from "../middleware/authMiddleware.js";
+
 const route = express.Router();
 
 // eta create er route
-route.post("/createTask", createTask);
+route.post("/createTask",authMiddleware, createTask);
 
 // ekta thakbe show all tasks
-route.get("/tasks/:userId", getAllTasksForASpecificUser);
+route.get("/tasks",authMiddleware, getAllTasksForASpecificUser);
 
 // ekta thakbe show a single task by id for a specific User
-route.get("/task/:userId/:id", getASingleTaskByIdForASpecificUser);
+route.get("/task/:id",authMiddleware, getASingleTaskByIdForASpecificUser);
 
 // ekta thakbe update a task by id for a specific user
-route.put("/task/:userId/:id", updateASingleTaskByIdForASpecificUser);
+route.put("/task/:id",authMiddleware, updateASingleTaskByIdForASpecificUser);
 
 // ekta thakbe delete a task by id for a specific user
-route.delete("/task/:userId/:id", deleteASingleTaskByIdForASpecificUser);
+route.delete("/task/:id",authMiddleware, deleteASingleTaskByIdForASpecificUser);
 
 export default route;

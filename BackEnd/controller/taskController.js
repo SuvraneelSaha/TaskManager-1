@@ -7,12 +7,14 @@ import User from "../model/userModel.js";
 // Create a task for a specific user
 export const createTask = async (request, response) => {
   try {
-    const { title, dueDate, completed, userId } = request.body;
+    const { title, dueDate, completed } = request.body;
 
-    if (!title || !userId) {
+    const userId = request.user.userId; // this is from JWT
+
+    if (!title) {
       return response
         .status(400)
-        .json({ error: "Title and userId are required." });
+        .json({ error: "Title is Required for Creating the Task" });
     }
 
     const userExists = await User.findById(userId);
@@ -20,7 +22,7 @@ export const createTask = async (request, response) => {
       return response.status(404).json({ error: "User not found." });
     }
 
-    const task = new Task({ title, dueDate, completed, userId });
+    const task = new Task({ title : title.trim(), dueDate, completed, userId });
     await task.save();
 
     response.status(201).json(task);
@@ -34,7 +36,8 @@ export const createTask = async (request, response) => {
 // Get all tasks for a specific user
 export const getAllTasksForASpecificUser = async (request, response) => {
   try {
-    const { userId } = request.params;
+    const userId = request.user.userId;
+    // this is coming from the JWT token by using the authMiddleware
 
     if (!userId) {
       return response.status(400).json({ error: "User ID is required." });
@@ -53,18 +56,18 @@ export const getAllTasksForASpecificUser = async (request, response) => {
 // Get a single task by task ID and user ID
 export const getASingleTaskByIdForASpecificUser = async (request, response) => {
   try {
-    const { id, userId } = request.params;
+    const { id } = request.params;
+    const userId = request.user.userId;
 
-    if (!id || !userId) {
-      return response
-        .status(400)
-        .json({ error: "Task ID and User ID are required." });
+    if (!id) {
+      return response.status(400).json({ error: "Task ID are required." });
     }
 
-    const userExists = await User.findById(userId);
-    if (!userExists) {
-      return response.status(404).json({ error: "User not found." });
-    }
+    // const userExists = await User.findById(userId);
+    // if (!userExists) {
+    //   return response.status(404).json({ error: "User not found." });
+    // }
+    // not needed as authMiddleware ensures that the user already exists
 
     const task = await Task.findOne({ _id: id, userId });
 
@@ -87,13 +90,9 @@ export const updateASingleTaskByIdForASpecificUser = async (
   response
 ) => {
   try {
-    const { userId, id } = request.params;
+    const { id } = request.params; // this is the task Id
+    const userId = request.user.userId; // this is from the JWT token
     const { title, dueDate, completed } = request.body;
-
-    const userExists = await User.findById(userId);
-    if (!userExists) {
-      return response.status(404).json({ error: "User not found." });
-    }
 
     const task = await Task.findOne({ _id: id, userId });
     if (!task) {
@@ -132,12 +131,14 @@ export const deleteASingleTaskByIdForASpecificUser = async (
   response
 ) => {
   try {
-    const { userId, id } = request.params;
+    const { id } = request.params;
+    const userId = request.user.userId;
 
-    const userExists = await User.findById(userId);
-    if (!userExists) {
-      return response.status(404).json({ error: "User not found." });
-    }
+    // const userExists = await User.findById(userId);
+    // if (!userExists) {
+    //   return response.status(404).json({ error: "User not found." });
+    // }
+    // not needed as the user already is validated by the authMiddleware 
 
     const deletedTask = await Task.findOneAndDelete({ _id: id, userId });
     if (!deletedTask) {
