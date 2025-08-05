@@ -30,3 +30,6 @@ route.put("/task/:id",authMiddleware, updateASingleTaskByIdForASpecificUser);
 route.delete("/task/:id",authMiddleware, deleteASingleTaskByIdForASpecificUser);
 
 export default route;
+
+// in Authorization - use Bearer token + the jWT token for sending requests to the Server 
+// via the Postman 
