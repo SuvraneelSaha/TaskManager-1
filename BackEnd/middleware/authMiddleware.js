@@ -4,6 +4,7 @@ const authMiddleware = (request, response, next) => {
   const authHeader = request.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    
     return response.status(401).json({ error: "Authorization token missing or not Valid" });
   }
 

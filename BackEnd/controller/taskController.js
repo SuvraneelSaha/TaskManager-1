@@ -11,6 +11,8 @@ export const createTask = async (request, response) => {
 
     const userId = request.user.userId; // this is from JWT
 
+    // console.log("Error aasche boss");
+
     if (!title) {
       return response
         .status(400)
@@ -22,7 +24,7 @@ export const createTask = async (request, response) => {
       return response.status(404).json({ error: "User not found." });
     }
 
-    const task = new Task({ title : title.trim(), dueDate, completed, userId });
+    const task = new Task({ title: title.trim(), dueDate, completed, userId });
     await task.save();
 
     response.status(201).json(task);
@@ -138,7 +140,7 @@ export const deleteASingleTaskByIdForASpecificUser = async (
     // if (!userExists) {
     //   return response.status(404).json({ error: "User not found." });
     // }
-    // not needed as the user already is validated by the authMiddleware 
+    // not needed as the user already is validated by the authMiddleware
 
     const deletedTask = await Task.findOneAndDelete({ _id: id, userId });
     if (!deletedTask) {
