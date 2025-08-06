@@ -12,10 +12,10 @@ function Register() {
   const [success, setSuccess] = useState(false);
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
+    setFormData((prev)=>({
+      ...prev,
       [e.target.name]: e.target.value,
-    });
+    }));
     // Clear error when user starts typing
     if (error) setError("");
     if (success) setSuccess(false);
