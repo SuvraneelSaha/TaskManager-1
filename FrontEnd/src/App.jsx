@@ -1,9 +1,20 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./Pages/Home.jsx";
+import Login from "./Pages/Login.jsx";
+import Register from "./Pages/Register.jsx";
+import UserDashBoard from "./Pages/UserDashboard.jsx";
+
 function App() {
   return (
     <>
-      <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center">
-        <h1 className="text-3xl font-bold">This is the React App</h1>
-      </div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/userDashBoard" element={<UserDashBoard />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
