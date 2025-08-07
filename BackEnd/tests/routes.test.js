@@ -1,4 +1,4 @@
-import request from "supertest";
+const request = require("supertest");
 import mongoose from "mongoose";
 import app from "../testApp.js"; // We'll create this
 import User from "../model/userModel.js";

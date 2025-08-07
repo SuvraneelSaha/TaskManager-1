@@ -31,12 +31,17 @@ app.get("/", (req, res) => {
 const PORT = process.env.PORT || 7000;
 const MONGOURL = process.env.MONGO_URL;
 
-mongoose
-  .connect(MONGOURL)
-  .then(() => {
-    console.log("DB connected successfully ");
-    app.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}`);
-    });
-  })
-  .catch((error) => console.log(error));
+// Only start server if not in test environment
+if (process.env.NODE_ENV !== "test") {
+  mongoose
+    .connect(MONGOURL)
+    .then(() => {
+      console.log("DB connected successfully ");
+      app.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`);
+      });
+    })
+    .catch((error) => console.log(error));
+}
+
+export default app; // <-- export the app for use in tests
