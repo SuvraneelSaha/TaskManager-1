@@ -1,13 +1,70 @@
 import { Link } from "react-router-dom";
+import { useEffect, useRef } from "react";
 
 function Home() {
+  const loginRef = useRef(null);
+  const registerRef = useRef(null);
+
+  useEffect(() => {
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+    const createTextEffect = (element) => {
+      let interval = null;
+
+      const handleMouseOver = (event) => {
+        let iteration = 0;
+        const originalText = event.target.dataset.value;
+
+        clearInterval(interval);
+
+        interval = setInterval(() => {
+          event.target.innerText = originalText
+            .split("")
+            .map((letter, index) => {
+              if (index < iteration) {
+                return originalText[index];
+              }
+              return letters[Math.floor(Math.random() * 26)];
+            })
+            .join("");
+
+          if (iteration >= originalText.length) {
+            clearInterval(interval);
+          }
+
+          iteration += 1 / 3;
+        }, 30);
+      };
+
+      element.addEventListener("mouseover", handleMouseOver);
+
+      // Cleanup function
+      return () => {
+        element.removeEventListener("mouseover", handleMouseOver);
+        clearInterval(interval);
+      };
+    };
+
+    const cleanupLogin = loginRef.current
+      ? createTextEffect(loginRef.current)
+      : null;
+    const cleanupRegister = registerRef.current
+      ? createTextEffect(registerRef.current)
+      : null;
+
+    return () => {
+      if (cleanupLogin) cleanupLogin();
+      if (cleanupRegister) cleanupRegister();
+    };
+  }, []);
+
   return (
     <section className="h-screen overflow-hidden flex flex-col md:flex-row">
       {/* Left Side - Dark Background */}
       <div className="md:w-1/2 flex flex-col justify-center px-8 md:px-20 py-10 bg-[#1f1f1f] text-white">
         <div className="mb-10">
           <div className="flex items-center space-x-3">
-            <i class="fa-solid fa-pen-nib text-3xl text-[#81E6D9]"></i>
+            <i className="fa-solid fa-pen-nib text-3xl text-[#81E6D9]"></i>
             <span className="text-3xl font-bold">TaskTracker</span>
           </div>
         </div>
@@ -20,13 +77,17 @@ function Home() {
           <div className="space-y-4">
             <Link
               to="/login"
-              className="block w-full text-center bg-[#3182CE] text-white py-3 rounded-lg hover:bg-[#2B6CB0] transition"
+              ref={loginRef}
+              data-value="Login"
+              className="block w-full text-center bg-[#500db2] text-white py-3 rounded-lg hover:bg-gray-800 hover:text-white transition-all duration-200 font-mono tracking-wider border-2 border-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.5)] hover:shadow-[0_0_20px_rgba(34,211,238,0.8),inset_0_0_20px_rgba(34,211,238,0.1)]"
             >
               Login
             </Link>
             <Link
               to="/register"
-              className="block w-full text-center bg-white text-gray-800 py-3 rounded-lg hover:bg-gray-200 transition"
+              ref={registerRef}
+              data-value="Register"
+              className="block w-full text-center bg-[#BF00FF] text-white py-3 rounded-lg hover:bg-gray-800 hover:text-white transition-all duration-200 font-mono tracking-wider border-2 border-teal-400 shadow-[0_0_10px_rgba(20,184,166,0.5)] hover:shadow-[0_0_20px_rgba(20,184,166,0.8),inset_0_0_20px_rgba(20,184,166,0.1)]"
             >
               Register
             </Link>
