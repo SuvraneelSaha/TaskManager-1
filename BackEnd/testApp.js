@@ -23,7 +23,7 @@ app.get("/", (req, res) => {
 });
 
 // 404 handler for tests
-app.use("*", (req, res) => {
+app.use((req, res) => {
   res.status(404).json({ error: "Route not found" });
 });
 
