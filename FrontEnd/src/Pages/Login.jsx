@@ -11,9 +11,9 @@ function Login() {
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setFormData((prev)=>({
+    setFormData((prev) => ({
       ...prev,
-      [e.target.name] : e.target.value,
+      [e.target.name]: e.target.value,
     }));
     // Clear error when user starts typing
     if (error) setError("");
@@ -131,7 +131,7 @@ function Login() {
       {/* Right Side - Image */}
       <div className="hidden md:block md:w-1/2">
         <img
-          src="https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          src="https://images.unsplash.com/photo-1445400729573-1f666abb9447?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="Login visual"
           className="object-cover object-center w-full h-screen"
         />

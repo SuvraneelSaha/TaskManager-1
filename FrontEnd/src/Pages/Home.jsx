@@ -44,7 +44,7 @@ function Home() {
       {/* Right Side - Image */}
       <div className="hidden md:block md:w-1/2">
         <img
-          src="https://images.unsplash.com/photo-1570649236495-42fa5fe5c48b?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          src="https://images.unsplash.com/photo-1556441888-498b9c6bd63d?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="Login visual"
           className="object-cover object-left w-full h-screen"
         />

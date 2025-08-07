@@ -12,7 +12,7 @@ function Register() {
   const [success, setSuccess] = useState(false);
 
   const handleChange = (e) => {
-    setFormData((prev)=>({
+    setFormData((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
@@ -171,7 +171,7 @@ function Register() {
       {/* Right Side - Image */}
       <div className="hidden md:block md:w-1/2">
         <img
-          src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=80&w=1472&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          src="https://images.unsplash.com/photo-1552481902-9ef2babf332d?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="Register visual"
           className="object-cover object-center w-full h-screen"
         />
