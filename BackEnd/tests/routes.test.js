@@ -1,6 +1,8 @@
-const request = require("supertest");
+import dotenv from "dotenv";
+dotenv.config({ path: ".env.test" });
+import request from "supertest";
 import mongoose from "mongoose";
-import app from "../testApp.js"; // We'll create this
+import app from "../testApp.js";
 import User from "../model/userModel.js";
 import Task from "../model/taskModel.js";
 
@@ -14,9 +16,11 @@ describe("Task Tracker API Tests", () => {
   let taskId;
 
   beforeAll(async () => {
-    // Connect to test database
-    await mongoose.connect(TEST_DB_URL);
+  await mongoose.connect(process.env.TEST_MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
   });
+});
 
   beforeEach(async () => {
     // Clean up database before each test
