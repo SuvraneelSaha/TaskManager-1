@@ -1,8 +1,10 @@
-# Task Tracker
+# TaskManager-1
 
 A full-stack Task Management application built with React and Node.js that allows users to create, manage, and track their daily tasks with user authentication.
 
-## 🚀 Features
+![Task Manager Screenshot](https://via.placeholder.com/800x400/1a1a1a/ffffff?text=Task+Manager+Dashboard)
+
+## Features
 
 - **User Authentication**: Secure signup and login with JWT tokens
 - **Task Management**: Create, read, update, and delete tasks
@@ -12,9 +14,10 @@ A full-stack Task Management application built with React and Node.js that allow
 - **Real-time Updates**: Instant UI updates for all operations
 - **Dark Theme**: Professional dark-themed interface
 
-## 📋 Tech Stack
+## Tech Stack
 
 ### Frontend
+
 - React 18 with Hooks
 - React Router for navigation
 - Fetch API for HTTP requests
@@ -22,13 +25,14 @@ A full-stack Task Management application built with React and Node.js that allow
 - Font Awesome for icons
 
 ### Backend
+
 - Node.js with Express
 - MongoDB with Mongoose
 - JWT for authentication
 - bcrypt for password hashing
 - CORS for cross-origin requests
 
-## 📦 Project Structure
+## Project Structure
 
 ```
 task-tracker/
@@ -44,6 +48,7 @@ task-tracker/
 │   │   ├── App.jsx
 │   │   └── main.jsx
 │   ├── package.json
+│   ├── Dockerfile
 │   └── ...
 ├── backend/
 │   ├── controller/
@@ -61,36 +66,57 @@ task-tracker/
 │   │   └── routes.test.js
 │   ├── index.js
 │   ├── package.json
+│   ├── Dockerfile
 │   └── ...
+├── docker-compose.yml
 └── README.md
 ```
 
-## 🛠️ Setup Instructions
+## Prerequisites
 
-### Prerequisites
-- Node.js (v16 or higher)
-- MongoDB (local or Atlas)
+- Node.js (v16 or higher) _or_ Docker
+- MongoDB (local or Atlas) _or_ Docker
 - Git
+
+## Installation & Setup
+
+### Quick Start with Docker 🐳
+
+```bash
+git clone https://github.com/SuvraneelSaha/TaskManager-1.git
+cd TaskManager-1
+docker-compose up --build
+```
+
+Access at: `http://localhost:3000` ✨
+
+_Stop with `docker-compose down`_
+
+### Manual Setup
 
 ### Backend Setup
 
 1. **Navigate to backend directory**
+
    ```bash
    cd backend
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Create environment file**
+
    ```bash
    cp .env.example .env
    ```
-   
+
 4. **Configure environment variables in `.env`**
-   ```
+
+   ```env
    MONGO_URL=mongodb://localhost:27017/tasktracker
    JWT_SECRET=your_super_secret_jwt_key_here
    PORT=8000
@@ -98,19 +124,21 @@ task-tracker/
    ```
 
 5. **Start MongoDB** (if using local MongoDB)
+
    ```bash
    # On macOS with Homebrew
    brew services start mongodb/brew/mongodb-community
-   
+
    # On Windows/Linux
    mongod
    ```
 
 6. **Start the backend server**
+
    ```bash
    # Development mode with auto-reload
    npm run dev
-   
+
    # Production mode
    npm start
    ```
@@ -120,50 +148,57 @@ task-tracker/
 ### Frontend Setup
 
 1. **Navigate to frontend directory**
+
    ```bash
    cd frontend
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Start the development server**
+
    ```bash
    npm start
    ```
 
    The frontend will be running at `http://localhost:3000`
 
-## 🧪 Testing
+## Running Tests
 
 ### Backend Tests
+
 ```bash
 cd backend
 npm test
 ```
 
 ### Frontend Tests
+
 ```bash
 cd frontend
 npm test
 ```
 
-## 🔗 API Endpoints
+## API Endpoints
 
-### Authentication
+### User Routes
+
 - `POST /api/user/registerUser` - Register new user
 - `POST /api/user/loginUser` - Login user
 
-### Tasks (Protected Routes)
+### Task Routes
+
 - `GET /api/tasks` - Get all tasks for authenticated user
 - `GET /api/task/:id` - Get single task by ID
 - `POST /api/createTask` - Create new task
 - `PUT /api/task/:id` - Update task by ID
 - `DELETE /api/task/:id` - Delete task by ID
 
-## 📱 Usage
+## Usage Guide
 
 1. **Registration**: Create a new account with email and password
 2. **Login**: Sign in with your credentials
@@ -172,7 +207,7 @@ npm test
 5. **Edit Task**: Update task details and mark as complete/incomplete
 6. **Delete Task**: Remove tasks with confirmation dialog
 
-## 🔐 Authentication Flow
+## Authentication Flow
 
 1. User registers/logs in with credentials
 2. Server validates and returns JWT token
@@ -181,7 +216,7 @@ npm test
 5. Server validates token and processes request
 6. Token expires after 30 minutes, user redirected to login
 
-## 🎨 UI Features
+## UI Features
 
 - **Dark Theme**: Professional dark color scheme
 - **Responsive Design**: Mobile-friendly interface
@@ -190,7 +225,7 @@ npm test
 - **Confirmation Modals**: Safe delete operations
 - **Animations**: Smooth transitions and hover effects
 
-## 📝 Environment Variables
+## Environment Variables
 
 Create a `.env` file in the backend directory with the following variables:
 
@@ -206,31 +241,24 @@ PORT=8000
 NODE_ENV=development
 ```
 
-## 🚀 Deployment
+## Troubleshooting
 
-### Backend Deployment (Heroku/Vercel/Railway)
-1. Set environment variables in your hosting platform
-2. Update MONGO_URL to point to MongoDB Atlas
-3. Deploy backend code
+### General Issues
 
-### Frontend Deployment (Netlify/Vercel)
-1. Update API endpoints to point to deployed backend
-2. Build the project: `npm run build`
-3. Deploy the `build` folder
+- **Connection refused**: Ensure MongoDB is running
+- **JWT errors**: Check JWT_SECRET in environment variables
+- **CORS errors**: Verify backend CORS configuration
+- **Port conflicts**: Change PORT in .env if 8000 is occupied
 
-## 🐛 Troubleshooting
+### Docker-specific Issues
 
-### Common Issues
+- **Container fails to start**: `docker-compose logs`
+- **Port conflicts**: Stop services using ports 3000, 8000, 27017
+- **Build issues**: `docker system prune` then rebuild
 
-1. **Connection refused**: Ensure MongoDB is running
-2. **JWT errors**: Check JWT_SECRET in environment variables
-3. **CORS errors**: Verify backend CORS configuration
-4. **Port conflicts**: Change PORT in .env if 8000 is occupied
-
-### Debug Mode
 Set `NODE_ENV=development` in .env for detailed error messages.
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
@@ -238,17 +266,18 @@ Set `NODE_ENV=development` in .env for detailed error messages.
 4. Push to branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📜 License
+## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 👨‍💻 Author
+## Author
 
-**Code With Aggin**
-- GitHub: [your-github-username]
-- Email: [your-email]
+**Suvraneel Saha**
 
-## 🙏 Acknowledgments
+- GitHub: [@SuvraneelSaha](https://github.com/SuvraneelSaha)
+- Email: suvroneel2001@gmail.com
+
+## Acknowledgments
 
 - React team for the amazing framework
 - MongoDB team for the database solution
@@ -259,4 +288,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 **Note**: This is a learning project created for educational purposes. Feel free to use it as a reference or starting point for your own projects!
 
-**Made With Love ❤️ by CodingWithAggin**
+Made with ❤️ by Suvraneel Saha
