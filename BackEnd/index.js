@@ -52,3 +52,17 @@ if (process.env.NODE_ENV !== "test") {
 }
 
 export default app; // <-- export the app for use in tests
+
+// container to host ie localhost or my laptop connection is easy and by default provided by docker 
+// but connection between containers is difficult so for which we need a common network ; 
+// here in this case it is mern . 
+// so the common network is priority first 
+// 2nd dockerfile for frontend 
+// 3rd start the database and volume 
+// 4th Backend 
+
+// We can do this in 1 shot using docker compose 
+ // A single yaml file - helps to run multiple containers and dependency is taken care of 
+ // and also a common network is provided 
+
+ 

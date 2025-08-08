@@ -1,0 +1,42 @@
+# services
+#network - executed first even before services
+#volume - local volume or any other volumes
+
+services:
+  frontend:
+    build: ./FrontEnd
+    # where is the frontend docker file
+    ports:
+      - "5173:5173"
+      # port binding
+    networks:
+      - mern
+  backend:
+    build: ./BackEnd
+  # image if i dont have the src but as i have the src i will build it 
+    ports:
+      - "8000:8000"
+    networks:
+      - mern
+    depends_on:
+      - mongodb
+
+  mongodb:
+    # image as we are using it , not the dockerfile as we dont have one 
+    image: mongo:latest
+    # preferably use version 
+    ports:
+      - "27017:27017"
+    networks:
+      - mern
+    volumes:
+      - mongodb-data:/data/db
+
+networks:
+  mern: 
+    driver: bridge
+    # why bridge as containers need to communicate
+
+volumes:
+  mongodb-data:
+    driver: local
