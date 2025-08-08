@@ -15,9 +15,9 @@ function EditUserTask() {
   const [taskNotFound, setTaskNotFound] = useState(false);
 
   const navigate = useNavigate();
-  const { id } = useParams(); // Get task ID from URL
+  const { id } = useParams(); 
 
-  // Check authentication when component mounts
+  // Checking authentication 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -25,7 +25,7 @@ function EditUserTask() {
       return;
     }
 
-    // Check if token is expired
+    // Checking if token is expired
     try {
       const payload = JSON.parse(atob(token.split(".")[1]));
       const currentTime = Date.now() / 1000;
@@ -44,7 +44,7 @@ function EditUserTask() {
     }
   }, [navigate]);
 
-  // Fetch task data when component mounts and authentication is verified
+  // Fetch tasks now 
   useEffect(() => {
     if (!isAuthenticating && id) {
       fetchTaskData();
@@ -70,7 +70,7 @@ function EditUserTask() {
       const data = await response.json();
 
       if (response.ok) {
-        // Format date for input field
+        // Formating date for input field
         const formattedDate = data.dueDate
           ? new Date(data.dueDate).toISOString().split("T")[0]
           : "";
@@ -101,7 +101,7 @@ function EditUserTask() {
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
-    // Clear error when user starts typing
+    //  when user starts typing Clear error
     if (error) setError("");
     if (success) setSuccess(false);
   };
@@ -109,7 +109,7 @@ function EditUserTask() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Basic validation
+    
     if (!formData.title.trim()) {
       setError("Task title is required");
       return;
@@ -151,7 +151,7 @@ function EditUserTask() {
 
       if (response.ok) {
         setSuccess(true);
-        // Redirect to dashboard after a short delay
+        
         setTimeout(() => {
           navigate("/userDashBoard");
         }, 1500);
@@ -186,7 +186,7 @@ function EditUserTask() {
     );
   }
 
-  // Show task not found message
+  // task not found message
   if (taskNotFound) {
     return (
       <div className="min-h-screen bg-[#1f1f1f]">
@@ -232,7 +232,7 @@ function EditUserTask() {
 
   return (
     <div className="min-h-screen bg-[#1f1f1f]">
-      {/* Header Section */}
+     
       <header className="bg-[#2a2a2a] border-b border-gray-700 text-white py-6 px-8">
         <div className="flex justify-between items-center">
           <Link to="/userDashBoard" className="flex items-center space-x-3">

@@ -20,7 +20,7 @@ export const registerUser = async (request, response) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 7);
-    // no. of times the hashing algo will run aka cost factor
+    // no. of times the hashing algo will run aka cost factor or slat
     // 7 - why - as because thala for a reason
 
     const user = new User({ email, password: hashedPassword });
@@ -65,7 +65,6 @@ export const logInUser = async (request, response) => {
       process.env.JWT_SECRET,
       {
         expiresIn: "30m",
-        // will add emailId as well later
       }
     );
 

@@ -77,7 +77,7 @@ function CreateTask() {
         },
         body: JSON.stringify({
           title: formData.title.trim(),
-          dueDate: formData.dueDate || undefined, // Send undefined if no date selected
+          dueDate: formData.dueDate || undefined, //  undefined if no date selected
         }),
       });
 
@@ -91,16 +91,14 @@ function CreateTask() {
       const data = await response.json();
 
       if (response.ok) {
-        // Task created successfully
         setSuccess(true);
-        // Reset form
+        //form rest
         setFormData({ title: "", dueDate: "" });
-        // Redirect to dashboard after a short delay
+
         setTimeout(() => {
           navigate("/userDashBoard");
         }, 1500);
       } else {
-        // Task creation failed
         setError(data.error || "Failed to create task");
       }
     } catch (error) {
@@ -131,7 +129,7 @@ function CreateTask() {
 
   return (
     <div className="min-h-screen bg-[#1f1f1f]">
-      {/* Header Section */}
+     
       <header className="bg-[#2a2a2a] border-b border-gray-700 text-white py-6 px-8">
         <div className="flex justify-between items-center">
           <Link to="/userDashBoard" className="flex items-center space-x-3">

@@ -34,7 +34,7 @@ function UserDashboard() {
     }
   }, [navigate]);
 
-  // Fetch user's tasks
+  // Fetching user's tasks
   const fetchUserTasks = async (token) => {
     try {
       const response = await fetch("http://localhost:8000/api/tasks", {
@@ -75,18 +75,18 @@ function UserDashboard() {
     }
   };
 
-  // Filter tasks based on status and search term
+  // Filtering tasks based on status and search term
   useEffect(() => {
     let filtered = tasks;
 
-    // Filter by status
+    // Filtering by status
     if (filterStatus === "completed") {
       filtered = filtered.filter((task) => task.completed);
     } else if (filterStatus === "pending") {
       filtered = filtered.filter((task) => !task.completed);
     }
 
-    // Filter by search term
+    // Filtering by search term
     if (searchTerm) {
       filtered = filtered.filter((task) =>
         task.title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -184,7 +184,7 @@ function UserDashboard() {
           </div>
         )}
 
-        {/* Create Task Button */}
+        {/* Task Button */}
         <div className="mb-8">
           <Link
             to="/userDashBoard/createTask"
@@ -195,7 +195,7 @@ function UserDashboard() {
           </Link>
         </div>
 
-        {/* Filters and Search - Updated Layout */}
+        {/* Filters and Search */}
         <div className="mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           {/* Status Filter - Left Side */}
           <div className="flex gap-2">
@@ -231,7 +231,7 @@ function UserDashboard() {
             </button>
           </div>
 
-          {/* Search Input - Right Side */}
+          {/* Search Input on Right Side */}
           <div className="relative max-w-xs">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
               <i className="fa-solid fa-magnifying-glass text-gray-400"></i>
@@ -343,7 +343,7 @@ function UserDashboard() {
         </div>
       </div>
 
-      {/* Delete Confirmation Modal */}
+      {/* Delete Modal Confirmation */}
       {deleteModal.isOpen && (
         <div className="fixed inset-0 backdrop-blur-sm bg-black/10 flex items-center justify-center z-50">
           <div className="bg-gray-800 rounded-lg p-6 max-w-md w-full mx-4 border border-gray-700">

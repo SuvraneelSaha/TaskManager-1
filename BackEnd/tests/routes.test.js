@@ -6,7 +6,7 @@ import app from "../testApp.js";
 import User from "../model/userModel.js";
 import Task from "../model/taskModel.js";
 
-// Test database URL - use a separate test database
+// Test database URL - separate from the actual db 
 const TEST_DB_URL =
   process.env.TEST_MONGO_URL || "mongodb://localhost:27017/tasktracker_test";
 
@@ -23,13 +23,13 @@ describe("Task Tracker API Tests", () => {
 });
 
   beforeEach(async () => {
-    // Clean up database before each test
+    // Cleaning up database before each test
     await User.deleteMany({});
     await Task.deleteMany({});
   });
 
   afterAll(async () => {
-    // Clean up and close database connection
+    // Cleaning up and close database connection
     await mongoose.connection.dropDatabase();
     await mongoose.connection.close();
   });
@@ -52,7 +52,7 @@ describe("Task Tracker API Tests", () => {
       );
       expect(response.body).toHaveProperty("userId");
 
-      // Verify user is created in database
+      // Verify user is created in database or not 
       const user = await User.findOne({ email: testUser.email });
       expect(user).toBeTruthy();
       expect(user.email).toBe(testUser.email);
@@ -238,7 +238,7 @@ describe("Task Tracker API Tests", () => {
 
       const taskId = createResponse.body._id;
 
-      // Fetch the specific task
+      // Fetch a specific task
       const response = await request(app)
         .get(`/api/task/${taskId}`)
         .set("Authorization", `Bearer ${authToken}`)
