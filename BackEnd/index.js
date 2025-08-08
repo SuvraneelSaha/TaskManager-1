@@ -13,6 +13,7 @@ import dotenv from "dotenv";
 import taskRoute from "./routes/taskRoute.js";
 import userRoute from "./routes/userRoute.js";
 import cors from "cors";
+import fs from "fs";
 
 const app = express();
 dotenv.config();
@@ -29,14 +30,20 @@ app.get("/", (req, res) => {
 });
 
 const PORT = process.env.PORT || 7000;
-const MONGOURL = process.env.MONGO_URL;
+// Detect Docker by checking if /.dockerenv exists
+let mongoHost = "localhost";
+if (fs.existsSync("/.dockerenv")) {
+  mongoHost = "mongodb"; // container name in the Docker network
+}
+
+const MONGOURL = process.env.MONGO_URL.replace("localhost", mongoHost);
 
 // Only start server if not in test environment
 if (process.env.NODE_ENV !== "test") {
   mongoose
     .connect(MONGOURL)
     .then(() => {
-      console.log("DB connected successfully ");
+      console.log("DB connected successfully to", MONGOURL);
       app.listen(PORT, () => {
         console.log(`Server is running on port ${PORT}`);
       });
