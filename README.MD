@@ -2,8 +2,7 @@
 
 A full-stack Task Management application built with React and Node.js that allows users to create, manage, and track their daily tasks with user authentication.
 
-![Task Manager Screenshot](https://via.placeholder.com/800x400/1a1a1a/ffffff?text=Task+Manager+Dashboard)
-
+![Task Manager Screenshot](./FrontEnd//public/TaskManager.png)
 ## Features
 
 - **User Authentication**: Secure signup and login with JWT tokens
