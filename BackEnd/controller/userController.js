@@ -62,6 +62,8 @@ export const logInUser = async (request, response) => {
 
     const token = jwt.sign(
       { userId: user._id, email: user.email },
+      // this user._id is the mongodb's unique id assigned automatically by mongoDb to 
+      // the specific user 
       process.env.JWT_SECRET,
       {
         expiresIn: "30m",
